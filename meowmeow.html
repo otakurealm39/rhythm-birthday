@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Rhythm</title>
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family: 'Segoe UI', sans-serif;
+background: radial-gradient(circle at bottom, #0b0f2a, #000);
+color:white;
+text-align:center;
+cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1160.cur'), auto;
+}
+
+/* Night sky stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation: twinkle 2s infinite ease-in-out;
+}
+@keyframes twinkle{
+0%,100%{opacity:0.2;}
+50%{opacity:1;}
+}
+
+/* Center button */
+#startBtn{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+padding:20px 40px;
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.3);
+backdrop-filter: blur(10px);
+font-size:22px;
+color:white;
+border-radius:50px;
+cursor:pointer;
+transition:0.5s;
+}
+#startBtn:hover{
+background:white;
+color:black;
+}
+
+/* Surprise Page */
+#surprise{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+animation: fadeIn 2s forwards;
+overflow:hidden;
+}
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* Floating animals */
+.float{
+position:absolute;
+animation: float 6s ease-in-out infinite;
+}
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+/* Typewriter */
+#message{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:80%;
+font-size:24px;
+line-height:1.6;
+white-space:pre-line;
+border-right:2px solid white;
+overflow:hidden;
+}
+
+/* Confetti */
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:gold;
+animation: fall 4s linear infinite;
+}
+@keyframes fall{
+0%{top:-10px;}
+100%{top:100%;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="startBtn" onclick="startSurprise()">Click for Surprise</div>
+
+<div id="surprise">
+
+<!-- Floating pandas & cats -->
+<img src="https://i.imgur.com/4AiXzf8.png" class="float" style="top:10%; left:10%; width:100px;">
+<img src="https://i.imgur.com/4AiXzf8.png" class="float" style="top:70%; left:80%; width:100px;">
+<img src="https://i.imgur.com/JyH8fXn.png" class="float" style="top:20%; left:75%; width:100px;">
+<img src="https://i.imgur.com/JyH8fXn.png" class="float" style="top:75%; left:15%; width:100px;">
+
+<div id="message"></div>
+
+<audio autoplay loop>
+<source src="https://www2.cs.uic.edu/~i101/SoundFiles/StarWars3.wav" type="audio/wav">
+</audio>
+
+</div>
+
+<script>
+
+/* Generate stars */
+for(let i=0;i<200;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"%";
+star.style.left=Math.random()*100+"%";
+star.style.animationDelay=Math.random()*2+"s";
+document.body.appendChild(star);
+}
+
+function startSurprise(){
+document.getElementById("startBtn").style.display="none";
+document.getElementById("surprise").style.display="block";
+typeWriter();
+confetti();
+}
+
+let text = "Happy Birthday Rhythm\n\nYou are not just my favorite person...\nYou are the calm in chaos,\nThe smile in silence,\nThe warmth in cold nights.\n\nMay this year wrap you in happiness,\nMay your dreams chase you,\nAnd may your heart always stay this pure.\n\nYou deserve a universe full of light.";
+
+let i=0;
+function typeWriter(){
+if(i<text.length){
+document.getElementById("message").innerHTML += text.charAt(i);
+i++;
+setTimeout(typeWriter,40);
+}
+}
+
+function confetti(){
+for(let i=0;i<100;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"%";
+c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+c.style.animationDuration=(Math.random()*3+2)+"s";
+document.getElementById("surprise").appendChild(c);
+}
+}
+
+</script>
+
+</body>
+</html>
